@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this repository or the NeuroCA architecture in your work, please cite it as follows."
+title: "NeuroCA: A Hybrid Neural Network Based on Cellular Automata"
+abstract: >-
+  NeuroCA is a research architecture in which a neuron is a W-bit register on an
+  N-dimensional torus and the whole network is a binary cellular automaton in N+1
+  dimensions. A deterministic CA substrate (~530 features) feeds a Transformer/MoE
+  that generates Python code verified by actual execution: 658/660 (99.7%) on 33
+  algorithmic tasks across 26 registry versions (etalon v120big50_kit2b).
+authors:
+  - family-names: Obuhau
+    given-names: Uladzimir
+    orcid: ""
+    affiliation: "Independent Researcher"
+keywords:
+  - cellular automata
+  - neural networks
+  - code generation
+  - reservoir computing
+  - evolutionary computing
+  - python
+date-released: "2026-09-26"
+license: CC-BY-4.0
+version: "v0.1-v120"

@@ -3,7 +3,18 @@
 **Register-based cellular automaton substrate + Transformer/MoE for verifiable
 Python code generation.**
 
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](LICENSE)
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
+[![arXiv](https://img.shields.io/badge/arXiv-pending-red.svg)](https://arxiv.org/)
+[![Code size](https://img.shields.io/github/languages/code-size/Xartman86/neuroca)](https://github.com/Xartman86/neuroca)
+
 - 🇷🇺 Русская версия: [README.ru.md](README.ru.md) · [Полная статья на русском](docs/NeuroCA_paper_ru.md)
+
+## Demo
+
+| Register machine (9×9×9×8 = 5832 bits) | Crystal dynamics (N+1 dims) |
+|---|---|
+| ![neuroca_anim](assets/neuroca_anim.gif) | ![neuroca_anim_4d](assets/neuroca_anim_4d.gif) |
 
 NeuroCA is a research architecture in which a neuron is a **W-bit register on an
 N-dimensional torus**, and the whole network is a binary cellular automaton (CA) in

@@ -2,14 +2,19 @@
 
 **Регистровый КА-субстрат + трансформер/MoE для верифицируемой генерации Python-кода.**
 
-NeuroCA — исследовательская архитектура, в которой нейрон — это **W-битный
-регистр на N-мерном торе**, а вся сеть — бинарный клеточный автомат (КА) в N+1
-измерениях. Детерминированная динамика КА даёт ~530 признаков (резервуар
-`Substrate3`); компактный трансформер/MoE читает их и генерирует Python-код,
-который проверяется **реальным исполнением** (compile + тесты в песочнице).
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](LICENSE)
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
+[![arXiv](https://img.shields.io/badge/arXiv-pending-red.svg)](https://arxiv.org/)
+[![Code size](https://img.shields.io/github/languages/code-size/Xartman86/neuroca)](https://github.com/Xartman86/neuroca)
 
 - 🇬🇧 English version: [README.md](README.md)
 - 📄 Полная научная работа (рус.): [docs/NeuroCA_paper_ru.md](docs/NeuroCA_paper_ru.md)
+
+## Демо
+
+| Регистровая машина (9×9×9×8 = 5832 бита) | Динамика кристалла (N+1 измерений) |
+|---|---|
+| ![neuroca_anim](assets/neuroca_anim.gif) | ![neuroca_anim_4d](assets/neuroca_anim_4d.gif) |
 - 📄 Preprint (eng., arXiv-версия): [docs/NeuroCA_paper_arXiv.md](docs/NeuroCA_paper_arXiv.md) · [PDF](docs/NeuroCA_paper_arXiv.pdf)
 
 ## Ключевые результаты (серия v0.1–v120, 26 версий реестра)
