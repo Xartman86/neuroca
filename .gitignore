@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+
+# Large / internal artifacts (not part of the public repo)
+*.pt
+*.npz
+*.jsonl
+.nuroca_lab/
+.neuroca_lab/
+logs/
+tmp/
+venv_gpu/
+orch_artifacts/
