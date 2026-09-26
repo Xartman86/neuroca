@@ -3,6 +3,8 @@
 **Register-based cellular automaton substrate + Transformer/MoE for verifiable
 Python code generation.**
 
+- 🇷🇺 Русская версия: [README.ru.md](README.ru.md) · [Полная статья на русском](docs/NeuroCA_paper_ru.md)
+
 NeuroCA is a research architecture in which a neuron is a **W-bit register on an
 N-dimensional torus**, and the whole network is a binary cellular automaton (CA) in
 N+1 dimensions. The deterministic CA dynamics provides ~530 features (the
@@ -30,9 +32,11 @@ is staged loss decomposition.
 
 ```
 neuroca-repo/
-├── README.md                 ← this file
+├── README.md                 ← this file (English)
+├── README.ru.md              ← Russian version
 ├── LICENSE                   ← CC BY 4.0
 ├── docs/
+│   ├── NeuroCA_paper_ru.md       ← full paper, Russian (Markdown)
 │   ├── NeuroCA_paper_arXiv.md    ← full preprint (Markdown)
 │   └── NeuroCA_paper_arXiv.pdf   ← preprint (10 pages, A4)
 └── neuroca/                  ← core: RegisterCA engine, rules, hierarchy, ES
