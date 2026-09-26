@@ -1,0 +1,32 @@
+{
+  "title": "NeuroCA: A Hybrid Neural Network Based on Cellular Automata",
+  "description": "Register-based cellular automaton substrate (~530 features) + Transformer/MoE generating Python code verified by actual execution. 658/660 (99.7%) on 33 algorithmic tasks; series v0.1-v120, 26 registry versions.",
+  "creators": [
+    {
+      "name": "Obuhau, Uladzimir",
+      "affiliation": "Independent Researcher"
+    },
+    {
+      "name": "NeuroCA Laboratory"
+    }
+  ],
+  "license": "CC-BY-4.0",
+  "keywords": [
+    "cellular automata",
+    "neural networks",
+    "code generation",
+    "reservoir computing",
+    "evolutionary computing",
+    "python",
+    "neural cellular automata"
+  ],
+  "upload_type": "software",
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "scheme": "url",
+      "identifier": "https://github.com/Xartman86/neuroca",
+      "relation": "isSupplementTo"
+    }
+  ]
+}
