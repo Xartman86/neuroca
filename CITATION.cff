@@ -5,8 +5,10 @@ abstract: >-
   NeuroCA is a research architecture in which a neuron is a W-bit register on an
   N-dimensional torus and the whole network is a binary cellular automaton in N+1
   dimensions. A deterministic CA substrate (~530 features) feeds a Transformer/MoE
-  that generates Python code verified by actual execution: 658/660 (99.7%) on 33
-  algorithmic tasks across 26 registry versions (etalon v120big50_kit2b).
+  that generates Python code verified by actual execution. Series v0.1-v120, 36
+  registry versions; etalon v120big50_unkbase: 479/660 EXEC, Tier1 355/620 under
+  the strict full-cue protocol (root corpus/format defects found and fixed in
+  09.2026; legacy bare-cue protocol peaked at 658/660).
 authors:
   - family-names: Obuhau
     given-names: Uladzimir

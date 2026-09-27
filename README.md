@@ -22,22 +22,47 @@ N+1 dimensions. The deterministic CA dynamics provides ~530 features (the
 `Substrate3` reservoir); a compact Transformer/MoE reads them and generates Python
 code that is verified by **actual execution** (compile + real tests in a sandbox).
 
-## Key results (series v0.1–v120, 26 registry versions)
+## Key results (series v0.1–v120, 36 registry versions)
 
 | Metric | Value |
 |---|---|
-| 660 exec-run (33 tasks × 20 samples), etalon `v120big50_kit2b` | **658/660 = 99.7%** |
-| Old 23 families / new 10 families | 460/460 (100%) / 198/200 (99%) |
-| Tier1 (new edge inputs) | 487 (31 saved families; see audit §6.4 of the paper) |
+| 660 exec-run (33 tasks × 20), **etalon `v120big50_unkbase`** (promoted 27.09) | **479/660** (old 345 / new 134) |
+| Tier1 (edge inputs, 620) | **355/620** |
+| Prior etalon `kit2b` (same strict protocol) | 434/660 · Tier1 326 |
+| Historical 660 on legacy bare-cue protocol (`kit2b`) | 658/660 = 99.7% — see protocol note below |
 | Core throughput | ~130M bit-updates/s (CPU, no bit-packing) |
 | Teacher loop (qwen2.5:14b) | 208 gens → 106 EXEC-valid (~51% yield); `second_max` 0→20/20 |
 
+> **Protocol note (honesty):** the 99.7% figure was measured on the legacy
+> bare-cue protocol (`"задача X"` only). In September 2026 the eval was
+> strengthened to the **full-cue protocol** (`"задача X: <description>"`) — a
+> construction that turned out to be **absent from the training corpus** (see
+> P2-format defect below). Under the strict protocol the same model scores
+> 434/660; the new etalon `unkbase` reaches 479/660.
+
+## Latest findings (27.09.2026) — root defects found
+
+1. **Corpus defect (root cause of Tier1):** `kit2_build.clean_text` silently
+   dropped OOV words — 23,097 of 107,541 words (21%) never reached training.
+   UNK fix (`NEUROCA_TOK_UNK=1`) restored them: `unkbase` **660=479, Tier1=355**
+   (+45/+29 vs `kit2b`) → new etalon.
+2. **P2-format defect:** of 2,094 training cues, **0** used the
+   `"задача X: <описание>"` construction that the P2 test harness evaluates
+   with — the model never saw the format, which explains the reversed
+   bare/full-cue gap (373 vs 292). Treatment (without using P2): 264 corpus
+   descriptions converted to P2 format + 165 teacher paraphrases + textbook
+   (29 tasks) + vocab V=2451 (80% P2 coverage). Corpus now 279,042 pairs (+21.7%).
+3. **G7 verdict (substrate ablation closed):** 530 substrate features do **not**
+   pay off at 53M/104K — scratch 332±20 vs 366±24 (−34, n.s.); transfer
+   434/326 vs 440/313 (noise). However, a model trained **with** the substrate
+   fails **without** it (cross-ablation 4/660): the substrate is a working
+   support of the trained model, not a free lunch at this scale.
+
 Key lessons measured in the series: capacity solves profile "binarity"
 (7.2M→53M, feature overlap 0.764→0.285); growth comes **from data, not
-parameters** (544→648→658); synthetic elisions/template steps in the corpus
-**hurt**; the CA substrate adds +5.0 ± 5.8 p.p. at the current scale (within
-noise); edge data did not cure Tier1 (kit2c 656/660, Tier1 485) — the next lever
-is staged loss decomposition.
+parameters** (544→648→658 on the legacy protocol); synthetic elisions/template
+steps in the corpus **hurt**; edge data alone did not cure Tier1; the P2
+deficit has a **format/semantics nature**, not just a vocabulary one.
 
 ## Repository structure
 

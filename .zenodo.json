@@ -1,6 +1,6 @@
 {
   "title": "NeuroCA: A Hybrid Neural Network Based on Cellular Automata",
-  "description": "Register-based cellular automaton substrate (~530 features) + Transformer/MoE generating Python code verified by actual execution. 658/660 (99.7%) on 33 algorithmic tasks; series v0.1-v120, 26 registry versions.",
+  "description": "Register-based cellular automaton substrate (~530 features) + Transformer/MoE generating Python code verified by actual execution. Series v0.1-v120, 36 registry versions; etalon v120big50_unkbase: 479/660 EXEC, Tier1 355/620 under strict full-cue protocol (root corpus/format defects found and fixed 09.2026).",
   "creators": [
     {
       "name": "Obuhau, Uladzimir",
