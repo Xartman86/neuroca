@@ -80,8 +80,9 @@ neuroca-repo/
 ├── LICENSE                ← CC BY 4.0
 ├── docs/
 │   ├── NeuroCA_paper_ru.md     ← научная работа на русском (Markdown)
+│   ├── NeuroCA_internal_language.md ← внутренний язык (иероглифы) — с примерами и иллюстрациями
 │   ├── NeuroCA_paper_arXiv.md  ← препринт на английском (Markdown)
-│   └── NeuroCA_paper_arXiv.pdf ← препринт (10 стр., A4)
+│   └── NeuroCA_paper_arXiv.pdf ← препринт (11 стр., A4)
 └── neuroca/               ← ядро: RegisterCA, правила, иерархия, ES
     ├── __init__.py
     ├── engine.py          ← RegisterCA: reset/set_bitplane/step/features

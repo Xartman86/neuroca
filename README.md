@@ -85,8 +85,9 @@ neuroca-repo/
 ├── LICENSE                   ← CC BY 4.0
 ├── docs/
 │   ├── NeuroCA_paper_ru.md       ← full paper, Russian (Markdown)
+│   ├── NeuroCA_internal_language.md ← internal hieroglyphic language (RU, with figures)
 │   ├── NeuroCA_paper_arXiv.md    ← full preprint (Markdown)
-│   └── NeuroCA_paper_arXiv.pdf   ← preprint (10 pages, A4)
+│   └── NeuroCA_paper_arXiv.pdf   ← preprint (11 pages, A4)
 └── neuroca/                  ← core: RegisterCA engine, rules, hierarchy, ES
     ├── __init__.py
     ├── engine.py             ← RegisterCA: reset/set_bitplane/step/features
