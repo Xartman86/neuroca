@@ -15,6 +15,19 @@
 | Регистровая машина (9×9×9×8 = 5832 бита) | Динамика кристалла (N+1 измерений) |
 |---|---|
 | ![neuroca_anim](assets/neuroca_anim.gif) | ![neuroca_anim_4d](assets/neuroca_anim_4d.gif) |
+
+## Визуализации: график роста и 3D-структура
+
+| Рост (660 EXEC · Тир1 · P2 · эффекты) | 3D-вид («мозг»: семантический куб + PCA) | Изометрия 4D-кристалла |
+|---|---|---|
+| ![growth_curve](assets/growth_curve.png) | ![neuroca_brain3d](assets/neuroca_brain3d.png) | ![neuroca_iso_4d](assets/neuroca_iso_4d.png) |
+
+Данные графика (27.09.2026): scratch 53M (332–366) → §14 transfer (434–440) →
+`kit2b` 434/326 → **`unkbase` 479/660 · Тир1 355/620** (UNK-фикс восстановил 21%
+корпуса); разрыв P2 «полный cue» — дефицит словаря/формата, а не абстракции;
+измеренные эффекты: §14 +68…+108, UNK-фикс +45/+29. 3D-вид: семантический куб
+понятий (24³) и PCA-3D эмбеддингов токенов с цепями активации экспертов по задачам.
+
 - 📄 Preprint (eng., arXiv-версия): [docs/NeuroCA_paper_arXiv.md](docs/NeuroCA_paper_arXiv.md) · [PDF](docs/NeuroCA_paper_arXiv.pdf)
 
 ## Ключевые результаты (серия v0.1–v120, 36 версий реестра)

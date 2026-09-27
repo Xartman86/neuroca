@@ -16,6 +16,18 @@ Python code generation.**
 |---|---|
 | ![neuroca_anim](assets/neuroca_anim.gif) | ![neuroca_anim_4d](assets/neuroca_anim_4d.gif) |
 
+## Visuals: growth curve & 3D structure
+
+| Growth (660 EXEC · Tier1 · P2 · effects) | 3D view ("brain": semantic cube + PCA) | Isometric 4D crystal |
+|---|---|---|
+| ![growth_curve](assets/growth_curve.png) | ![neuroca_brain3d](assets/neuroca_brain3d.png) | ![neuroca_iso_4d](assets/neuroca_iso_4d.png) |
+
+Growth curve data (27.09.2026): scratch 53M (332–366) → §14 transfer (434–440) →
+`kit2b` 434/326 → **`unkbase` 479/660 · Tier1 355/620** (UNK fix restored 21% of the
+corpus); P2 full-cue gap is a vocabulary/format deficit, not abstraction; measured
+effects: §14 +68…+108, UNK-fix +45/+29. 3D view: semantic concept cube (24³) and
+PCA-3D of token embeddings with per-task expert-activation chains.
+
 NeuroCA is a research architecture in which a neuron is a **W-bit register on an
 N-dimensional torus**, and the whole network is a binary cellular automaton (CA) in
 N+1 dimensions. The deterministic CA dynamics provides ~530 features (the
