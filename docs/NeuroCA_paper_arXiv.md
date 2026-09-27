@@ -505,6 +505,33 @@ formulations. No personal data is involved. License for the preprint: CC BY 4.0
 
 ---
 
+## Addendum (27.09.2026): root data defects and the new etalon
+
+Two root defects found after this paper was written refine the results.
+
+**Corpus defect.** `kit2_build.clean_text` silently dropped OOV words: 23,097 of
+107,541 (21%) never reached training. The UNK fix (`NEUROCA_TOK_UNK=1` keeps the
+word position as UNK) restored the text; model `v120big50_unkbase` (transfer from
+v121b, seed 2024, 25 epochs) scored **660=479** (old 345 / new 134) and
+**Tier1=355/620** — +45/+29 over the previous etalon `kit2b` (434/326). Etalon
+updated; the 21% cut text explains part of the Tier1 edge deficits.
+
+**P2 format defect.** None of the 2,094 training cues contained the "задача X:
+описание" construction that the P2 benchmark tests with — the model never saw the
+format, which explains the reversed bare/full-cue gap (373 vs 292). Treatment
+without using P2: 264 corpus descriptions converted to P2 format, 165 teacher
+paraphrases, textbook (29 tasks) in P2 format, vocab V=2451 (80% P2-word coverage),
+corpus now 279,042 pairs (+21.7%).
+
+**G7 substrate verdict.** At 53M/104K the substrate features give no significant
+gain: scratch 332±20 vs 366±24 (−34, n.s.); transfer 434/326 vs 440/313 (noise). A
+model trained with the substrate, however, fails without it (cross-ablation 4/660):
+the substrate is a working support of the trained model. Branches L2/L3 are not built.
+
+**Eval protocol.** The 658/660 (99.7%) figure was measured on the legacy bare-cue
+protocol ("задача X"). The strict full-cue protocol scores the same model 434/660,
+the new etalon 479/660: a stricter metric, not a regression.
+
 ## References
 
 1. Wolfram S. *A New Kind of Science*. Wolfram Media, 2002.
