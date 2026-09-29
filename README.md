@@ -105,21 +105,31 @@ exec gate.
 
 ### Training: LLM teacher + exec verification
 
-A STaR-like loop: the teacher (Ollama `qwen2.5:14b`, `qwen2.5-coder:14b`,
-`deepseek-coder`) generates solutions; the **exec harness** (compile + real tests
-in a sandbox) filters them; only EXEC-valid solutions are distilled into the 53M
-student. Measured: 208 generations → 106 EXEC-valid (~51% yield). Corpus: 33
-algorithmic task families (sorting, binary search, GCD, digit sum, brackets, base
-conversion, max-finding, …), 1089 base rows; series also trained on 94K and 153K
-pairs (current corpus: 279,042 pairs).
+NeuroCA does not train on its own — a **large language model teacher** (Ollama
+`qwen2.5:14b`, `qwen2.5-coder:14b`, `deepseek-coder`) helps. The loop is simple:
+
+1. the teacher writes a solution for a task;
+2. a harness **actually runs it** (compile + real tests in a sandbox);
+3. only solutions that pass the check are distilled into the 53M student.
+
+Why: the small model inherits the big model's skill, but not its mistakes — only
+verified examples. Measured: of 208 teacher solutions, 106 passed (~51% yield).
+Corpus: 33 algorithmic task families (sorting, binary search, GCD, digit sum,
+brackets, base conversion, max-finding, …), 1089 base rows; the series also used
+94K and 153K-pair corpora (current: 279,042 pairs).
 
 ### Verification instead of string matching
 
-Code is judged by **real execution**, not text similarity, with two honest-metrics
-safeguards: the *format guard* (every eval must pass a format check — it caught a
-historical bug that inflated numbers from 82.4% to 99.8%), and the *edge-input
-set* (Tier1: empty lists, negative numbers, tabs) kept separate from
-reformulations.
+Many systems compare a model's answer with the ground truth **as text**. We do
+not: NeuroCA's code counts as solved **only if it really runs and returns correct
+answers on the tests**. Two extra safeguards keep the numbers honest:
+
+- **Format guard:** every test must pass a format check. This is how a historical
+  bug in the tests was caught — it inflated the metric (82.4% → the real 99.8% in
+  the older, milder protocol);
+- **A separate set of edge inputs (Tier1):** empty lists, negative numbers, tabs.
+  Such examples are absent from the training corpus, so the model cannot memorize
+  them — a fair test of generalization, not memory.
 
 ## Key results (series v0.1–v120, 36 registry versions)
 
@@ -141,27 +151,34 @@ reformulations.
 
 ## Latest findings (27.09.2026) — root defects found
 
-1. **Corpus defect (root cause of Tier1):** `kit2_build.clean_text` silently
-   dropped OOV words — 23,097 of 107,541 words (21%) never reached training.
-   UNK fix (`NEUROCA_TOK_UNK=1`) restored them: `unkbase` **660=479, Tier1=355**
-   (+45/+29 vs `kit2b`) → new etalon.
-2. **P2-format defect:** of 2,094 training cues, **0** used the
-   `"задача X: <описание>"` construction that the P2 test harness evaluates
-   with — the model never saw the format, which explains the reversed
-   bare/full-cue gap (373 vs 292). Treatment (without using P2): 264 corpus
-   descriptions converted to P2 format + 165 teacher paraphrases + textbook
-   (29 tasks) + vocab V=2451 (80% P2 coverage). Corpus now 279,042 pairs (+21.7%).
-3. **G7 verdict (substrate ablation closed):** 530 substrate features do **not**
-   pay off at 53M/104K — scratch 332±20 vs 366±24 (−34, n.s.); transfer
-   434/326 vs 440/313 (noise). However, a model trained **with** the substrate
-   fails **without** it (cross-ablation 4/660): the substrate is a working
-   support of the trained model, not a free lunch at this scale.
+Briefly, for a reader without context: below are three stories about **why the
+numbers turned out to be harder than they looked**, and what follows from them.
 
-Key lessons measured in the series: capacity solves profile "binarity"
-(7.2M→53M, feature overlap 0.764→0.285); growth comes **from data, not
-parameters** (544→648→658 on the legacy protocol); synthetic elisions/template
-steps in the corpus **hurt**; edge data alone did not cure Tier1; the P2
-deficit has a **format/semantics nature**, not just a vocabulary one.
+1. **Corpus defect (root cause of weak Tier1).** While cleaning the text, a
+   function silently dropped words that were not in the vocabulary (OOV). It
+   turned out that **a fifth of the training text — 21%** (23,097 of 107,541
+   words) never reached training. After the fix (`NEUROCA_TOK_UNK=1` keeps such
+   words as UNK) the model improved noticeably: etalon `unkbase` — **660=479,
+   Tier1=355** (+45/+29 vs the previous etalon). This is the main reason the
+   model used to stumble on unusual inputs.
+2. **P2-format defect: the model never saw the test format.** The benchmark tests
+   tasks written as «задача X: <описание>», but **zero of 2,094 training cues**
+   used that construction — the model physically could not learn it. Treatment
+   (without touching the test tasks): 264 descriptions converted to the format,
+   165 teacher paraphrases, a textbook (29 tasks), vocabulary extended to 2451
+   words. Corpus grew to 279,042 pairs.
+3. **G7 verdict (the "switch off the substrate" experiment).** At the current
+   scale (53M), the cellular-automaton features give **no noticeable accuracy
+   gain** (difference within noise). But a model trained **with** the substrate
+   almost stops working **without** it (4 of 660) — the substrate is a working
+   **support**, not a free lunch. An honest negative result: at larger scales the
+   check is still ahead.
+
+Measured lessons of the series: capacity solves profile "binarity" (7.2M→53M,
+feature overlap 0.764→0.285); growth comes **from data, not parameters**
+(544→648→658 on the legacy protocol); synthetic elisions/template steps in the
+corpus **hurt**; edge data alone did not cure Tier1; the P2 deficit has a
+**format/semantics nature**, not just a vocabulary one.
 
 ## Repository structure
 
