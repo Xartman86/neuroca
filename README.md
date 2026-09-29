@@ -34,6 +34,48 @@ N+1 dimensions. The deterministic CA dynamics provides ~530 features (the
 `Substrate3` reservoir); a compact Transformer/MoE reads them and generates Python
 code that is verified by **actual execution** (compile + real tests in a sandbox).
 
+## How NeuroCA works
+
+**1. Neuron = W-bit register on an N-dimensional torus.** The state of a neuron
+is a register; the whole network is a binary cellular automaton (CA) in N+1
+dimensions, where the register axis is the (N+1)-th dimension. The flagship
+machine is 9×9×9×8 = **5832 bits**; the core runs at ~130M bit-updates/s on CPU
+(no bit-packing needed).
+
+**2. Deterministic substrate as a reservoir.** The CA dynamics produces ~530
+frozen features (`Substrate3`): shift chains (12 tokens), syntax detectors,
+counters 8/16/32/64, phase clocks, conjunctions and random Boolean networks
+(RBN). The substrate is **not trained** — it is a fixed, reproducible
+bit-level reservoir; its feature cache is precomputed once per corpus.
+
+**3. Learnable head.** `HybridPrefix`: d=256, L=6, H=8, MoE with 8 experts
+(top-3), FDIM=530, closed vocabulary V=1078. It reads the substrate features and
+generates Python code. Branch A is 53M parameters (from scratch); an early
+7.2M variant is kept for capacity comparisons.
+
+**4. Generation cascade.** Each task runs through the chain
+`задача → анализ → стратегия → схема → код` (task → analysis → strategy →
+scheme → code). The inner stages (analysis, strategy, scheme) are written in the
+**internal hieroglyphic language** — compact radicals such as `<SORT> <LIST>
+<RET>` (see [NeuroCA_internal_language.md](docs/NeuroCA_internal_language.md)) —
+short formal plans that are verifiable at each step.
+
+**5. Training: LLM teacher + exec verification.** A STaR-like loop: the teacher
+(Ollama `qwen2.5:14b`, `qwen2.5-coder:14b`, `deepseek-coder`) generates
+solutions; the **exec harness** (compile + real tests in a sandbox) filters
+them; only EXEC-valid solutions are distilled into the 53M student. Measured:
+208 generations → 106 EXEC-valid (~51% yield). Corpus: 33 algorithmic task
+families (sorting, binary search, GCD, digit sum, brackets, base conversion,
+max-finding, …), 1089 base rows; series also trained on 94K and 153K pairs
+(current corpus: 279,042 pairs).
+
+**6. Verification instead of string matching.** Code is judged by **real
+execution**, not by text similarity. Two honest-metrics safeguards: the
+*format guard* (every eval must pass a format check — a historical
+eval-format bug inflated numbers from 82.4% to 99.8% was caught this way), and
+the *edge-input set* (Tier1 — empty lists, negative numbers, tabs) kept separate
+from reformulations.
+
 ## Key results (series v0.1–v120, 36 registry versions)
 
 | Metric | Value |
@@ -143,6 +185,6 @@ This work is licensed under the **Creative Commons Attribution 4.0 International
   title  = {NeuroCA: A Hybrid Neural Network Based on Cellular Automata},
   author = {NeuroCA Laboratory},
   year   = {2026},
-  note   = {Series v0.1--v120, 26 registry versions, etalon v120big50\_kit2b}
+  note   = {Series v0.1--v120, 36 registry versions, etalon v120big50\_unkbase (479/660 EXEC, Tier1 355/620)}
 }
 ```
