@@ -208,6 +208,7 @@ neuroca-repo/
 - **arXiv:** в процессе (arXiv:XXXX.XXXXX — обновить после анонса)
 - Русская версия: [`docs/NeuroCA_paper_ru.md`](docs/NeuroCA_paper_ru.md)
 - Английская (arXiv): [`docs/NeuroCA_paper_arXiv.md`](docs/NeuroCA_paper_arXiv.md) · [`PDF`](docs/NeuroCA_paper_arXiv.pdf)
+- 📰 Новости для новичков (30.09): [docs/ARTICLE_NEUROCA_3009.md](docs/ARTICLE_NEUROCA_3009.md)
 - Детали воспроизводимости (окружение, артефакты, команды, детерминизм): §8 статьи.
 
 ## Быстрый старт (ядро)

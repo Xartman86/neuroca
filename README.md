@@ -213,6 +213,7 @@ neuroca-repo/
 - **arXiv:** pending (arXiv:XXXX.XXXXX — update after announcement)
 - Full text: [`docs/NeuroCA_paper_arXiv.md`](docs/NeuroCA_paper_arXiv.md) and
   [`docs/NeuroCA_paper_arXiv.pdf`](docs/NeuroCA_paper_arXiv.pdf)
+- 📰 News for newcomers (30.09): [`docs/ARTICLE_NEUROCA_3009.md`](docs/ARTICLE_NEUROCA_3009.md)
 - Reproducibility details (environment, artifacts, commands, determinism): §8 of
   the paper.
 
