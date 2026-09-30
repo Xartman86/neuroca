@@ -149,10 +149,32 @@ answers on the tests**. Two extra safeguards keep the numbers honest:
 > P2-format defect below). Under the strict protocol the same model scores
 > 434/660; the new etalon `unkbase` reaches 479/660.
 
-## Latest findings (27.09.2026) — root defects found
+## Achievements (plain words)
 
-Briefly, for a reader without context: below are three stories about **why the
-numbers turned out to be harder than they looked**, and what follows from them.
+What NeuroCA can do today, without jargon:
+
+| What | Result | In plain words |
+|---|---|---|
+| Solves algorithmic tasks | **479 / 660** (strict protocol) | writes Python that really runs and passes tests for 33 kinds of tasks (sorting, search, GCD, digit sum, …) |
+| Handles unusual inputs | **358 / 620** (best in series) | empty lists, negative numbers, tabs — things it never saw in training |
+| Learns without matrix math | CA substrate + 53M head, ~130M bit-updates/s on CPU | the «no matrices» idea actually works on this scale |
+| Learns from a big teacher | 208 solutions → 106 passed (~51%) | inherits the teacher's skill, not its mistakes — only verified examples |
+| Thinks in steps | analysis → strategy → scheme → code | writes short formal plans in its own mini-language before the code |
+| Reports honestly | 36 versions, checkpoint hashes, negative results public | every number is tied to a checkpoint; failures are published |
+
+One more thing to set expectations: NeuroCA is **not** an attempt to replace
+general chatbots. It is a research architecture answering one question — can you
+replace matrix multiplications with deterministic bit-level dynamics and still
+solve algorithmic tasks? On this scale the answer is *yes*, and the honest
+boundary is composition (see News below).
+
+## News & findings (27–30.09.2026)
+
+In one place, for a reader without context: what happened on **27.09** (why the
+numbers turned out to be harder than they looked — three root defects) and on
+**30.09** (what the model does now — two new measurements).
+
+### 27.09 — three root defects found
 
 1. **Corpus defect (root cause of weak Tier1).** While cleaning the text, a
    function silently dropped words that were not in the vocabulary (OOV). It
@@ -179,6 +201,24 @@ feature overlap 0.764→0.285); growth comes **from data, not parameters**
 (544→648→658 on the legacy protocol); synthetic elisions/template steps in the
 corpus **hurt**; edge data alone did not cure Tier1; the P2 deficit has a
 **format/semantics nature**, not just a vocabulary one.
+
+### 30.09 — what the model does now
+
+1. **The model now thinks in steps (staged cascade).** Instead of writing code in
+   one shot, it first produces analysis → strategy → scheme → code. Result:
+   **469/660** on normal tasks (same level as the etalon) and **358/620 on edge
+   inputs — the best in the series**. Why it matters: edge inputs (empty lists,
+   negative numbers, tabs) were never in training, so this is a sign of real
+   understanding, not memorization.
+2. **Compositions: knows the bricks, cannot build the house.** We checked whether
+   NeuroCA can combine verified primitives into a *new* solution (e.g. «find
+   max» + «compare numbers»). Only **3 of 860** assembled correctly. A curious
+   detail: the model guesses the right arguments in **96%** of cases but does not
+   learn the composition itself. Why it matters: this is the honest boundary of
+   the series — the teacher passes individual skills, not assembly.
+3. **Why we publish this.** Negative results are as much a part of science as
+   wins. The data bug of 27.09 and the composition boundary of 30.09 are not
+   hidden — so both readers and we understand where the project actually stands.
 
 ## Perspectives
 
