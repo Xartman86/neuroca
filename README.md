@@ -180,6 +180,55 @@ feature overlap 0.764→0.285); growth comes **from data, not parameters**
 corpus **hurt**; edge data alone did not cure Tier1; the P2 deficit has a
 **format/semantics nature**, not just a vocabulary one.
 
+## Perspectives
+
+Where the series is heading (measured, not promises):
+
+1. **Compositional generalization** — assembling verified primitives into new
+   solutions (currently 3/860): next step is composition data in the corpus.
+2. **Staged cascade as the default generation mode** — it reached the best
+   Tier1 result (358/620) without losing 660 quality (469/660).
+3. **Scale** — whether the CA substrate starts paying off beyond 53M (on the
+   current scale it is a support, not a free gain — G7).
+4. **External benchmarks** — HumanEval (arXiv:2107.03374) is planned as an
+   out-of-corpus check.
+5. **Tier2/Tier3** — reuse of learned primitives, deeper edge-input coverage.
+
+## Research
+
+How the results are produced and kept honest:
+
+- **Versioned registry** — 36 experiment versions, every metric tied to a
+  checkpoint/corpus hash; etalon promoted on 27.09: `v120big50_unkbase`.
+- **Strict protocol** — full-cue eval (`«задача X: <описание>»`); the legacy
+  bare-cue figure (99.7%) is explicitly marked as historical.
+- **Measured effects** — UNK fix +45/+29, §14 transfer +68…+108, capacity
+  7.2M→53M (feature overlap 0.764→0.285).
+- **Ablations** — G7 substrate ablation (support, not free lunch; cross-ablation
+  4/660); format guard (caught an eval bug inflating 82.4%→99.8%).
+- **Post-etalon measurements (29.09)** — staged cascade `weak_ep6`
+  (660=469 · Tier1=358/620) and compositions P2·G13 (3/860, arity-match 96.2%).
+- **Teacher loop** — 208 generations → 106 EXEC-valid (~51% yield).
+
+## Theories
+
+Theoretical bridges used in the project:
+
+- **Cellular automata & reservoir computing** — deterministic bit dynamics as a
+  frozen reservoir (spirit of ReLiCADA, Kauffman RBNs).
+- **Neural cellular automata / morphogenesis** — Mordvintsev et al.
+  (arXiv:2205.01681), Stovold (arXiv:2305.12971): the growth/self-organization
+  line; our substrate is deliberately frozen, which poses the question of how to
+  bring adaptation in without breaking determinism.
+- **STaR self-improvement** (Zelikman et al., arXiv:2203.14465) — the teacher
+  + exec-verification loop.
+- **Internal hieroglyphic language** — short formal plans between cascade
+  stages; theoretical bridges: Vygotsky's inner speech, Bakhtin, Kahneman's
+  System 1/2, Friston's free energy, L-systems (details in
+  [NeuroCA_internal_language.md](docs/NeuroCA_internal_language.md)).
+- **Relevant Russian work** — neural CA for RL/self-organization and knowledge
+  distillation for LLMs (Mokretsov/Tatarnikova line) — see paper §2.
+
 ## Repository structure
 
 ```
