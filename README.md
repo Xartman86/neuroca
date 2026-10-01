@@ -303,6 +303,7 @@ neuroca-repo/
 - Full text: [`docs/NeuroCA_paper_arXiv.md`](docs/NeuroCA_paper_arXiv.md) and
   [`docs/NeuroCA_paper_arXiv.pdf`](docs/NeuroCA_paper_arXiv.pdf)
 - 📰 News for newcomers (30.09): [`docs/ARTICLE_NEUROCA_3009.md`](docs/ARTICLE_NEUROCA_3009.md)
+- 🧪 Testing methodology (how results are measured and kept honest): [`docs/NeuroCA_testing_methodology.md`](docs/NeuroCA_testing_methodology.md)
 - Reproducibility details (environment, artifacts, commands, determinism): §8 of
   the paper.
 
